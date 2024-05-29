@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>青龍伝説　-ゲスト画面-</title>
+</head>
+<body>
+    <div id="connecting" class="alert">
+        <h3 id="stage_indicator" class="center_text">通信中</h3>
+    </div>
+
+    <div id="stage_ent">
+        <h1 id="stage_indicator" class="center_text">入口</h1>
+        <p class="center_text" id="stage_explain">
+            準備ができたら<br>
+            洞窟に入ろう！<br>
+            (入場後にボタンを押してください。)
+        </p>
+    </div>
+
+    <div id="stage_A" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">レーザー</h1>
+        <p class="center_text" id="stage_explain">
+            レーザーをくぐり抜けてヒントを手に入れよう！
+        </p>
+    </div>
+
+    <div id="stage_B" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">謎解き①</h1>
+        <p class="center_text" id="stage_explain">
+            「レーザー」ステージで<br>
+            手に入れたヒントを使って<br>
+            謎を解こう！解けたら下の<br>
+            「答え」に入力してね！
+        </p>
+    </div>
+
+    <div id="stage_C" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">箱</h1>
+        <p class="center_text" id="stage_explain">
+            スタッフに従ってね。
+        </p>
+    </div>
+
+    <div id="stage_D" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">謎解き②</h1>
+        <p class="center_text" id="stage_explain">
+            「箱」ステージで<br>
+            手に入れたヒントを使って<br>
+            謎を解こう！解けたら下の<br>
+            「答え」に入力してね！
+        </p>
+    </div>
+
+    <div id="stage_E" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">トランプ</h1>
+        <p class="center_text" id="stage_explain">
+            スタッフに従ってね。
+        </p>
+    </div>
+
+    <div id="stage_last" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">青龍の住処</h1>
+        <p class="center_text" id="stage_explain">
+            今までの謎解きステージで手に入れたヒントを使って脱出しよう！
+        </p>
+    </div>
+
+    <div id="stage_clear" style="display: none;">
+        <h1 id="stage_indicator" class="center_text">脱出成功！</h1>
+        <p class="center_text" id="stage_explain">
+            青龍が助けてくれた！
+        </p>
+        <img style="width:100vw; height:50vw;" src="../introduction/img/place_holder.png">
+    </div>
+
+
+
+    <div id="answer_area" style="display: none;">
+        <p class="center_text">答え</p>
+        <input type="text" placeholder="ここに入力..." id="answer_field">
+        <button id="answer" class="center_button" disabled>答える</button>
+    </div>
+    <div id="stage_changer" style="display: none;">
+        <div id="nextstage_condition">
+            <p class="center_text" id="title">次のステージの状態</p>
+            <p class="center_text stage_condition_wait" id="indicator">
+                取得中
+            </p>
+        </div>
+        <button id="go_next_stage" class="center_button" disabled>
+            次のステージに<br>
+            入りました
+        </button>
+        <p class="center_text note">ボタンがグレーの時は次のステージに入らないでください。</p>
+    </div>
+    <div id="escape_stage" style="display: none;">
+        <button id="escape" class="center_button" disabled>
+            脱出する！
+        </button>
+    </div>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@skyway-sdk/room/dist/skyway_room-latest.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
