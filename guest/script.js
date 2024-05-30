@@ -89,7 +89,11 @@ class GUEST_CONNECTION{
                         $("#indicator").addClass("stage_condition_empty");
                         $("#indicator").text("空き");
                         if(MYSTERY_STAGES.includes(NOW_STAGE_ID)){
-                            $("#go_next_stage").attr("disabled",true);
+                            if(IS_CORRECTED){
+                                $("#go_next_stage").attr("disabled",false);
+                            }else{
+                                $("#go_next_stage").attr("disabled",true);
+                            }
                         }else{
                             $("#go_next_stage").attr("disabled",false);
                         }
@@ -150,7 +154,7 @@ function show_stage_info(stage_id){
     $("#indicator").addClass("stage_condition_wait");
 
     $("#go_next_stage").attr("disabled",true);
-
+    IS_CORRECTED = false;
 
     switch(stage_id){
         case 0://entrance
@@ -197,6 +201,7 @@ function show_stage_info(stage_id){
                 if(MYSTERY_STAGES.includes(stage_id)){
                     $("#go_next_stage").attr("disabled",true);
                 }else{
+                    IS_CORRECTED = true;
                     $("#go_next_stage").attr("disabled",false);
                 }
                 break;
@@ -233,6 +238,7 @@ $("#answer_field").on("input",()=>{
 $("#answer").on("click",()=>{
     if($("#answer_field").val() == MYSTERY_ANSWERS[NOW_STAGE_ID]){
         alert("正解！");
+        IS_CORRECTED = true;
         if(NOW_STAGE_ID != 6){
             $("#go_next_stage").attr("disabled",false);
         }else{
@@ -271,7 +277,7 @@ STAGES = [
     "trump",
     "mystery_last",
     "CLEAR",
-]
+];
 STAGES_DIV_QUERY = [
     "#stage_ent",
     "#stage_A",
@@ -281,8 +287,8 @@ STAGES_DIV_QUERY = [
     "#stage_E",
     "#stage_last",
     "#stage_clear"
-]
-MYSTERY_STAGES = [2,4,6]
+];
+MYSTERY_STAGES = [2,4,6];
 MYSTERY_ANSWERS = [
     "",
     "",
@@ -292,4 +298,5 @@ MYSTERY_ANSWERS = [
     "",
     "answer",
     ""
-]
+];
+IS_CORRECTED = false;
