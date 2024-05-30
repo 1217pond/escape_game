@@ -104,7 +104,7 @@ class GUEST_CONNECTION{
                         $("#go_next_stage").attr("disabled",true);
                     }
                 });
-                setTimeout(()=>{this.success_callback();},500);
+                setTimeout(()=>{this.success_callback();},1000);
                 
             }
         });
@@ -193,6 +193,7 @@ function show_stage_info(stage_id){
     NEXT_STAGE_CONDITION = "wait"
     get_stage_condition(stage_id).then(condition =>{
         $("#connecting").hide();
+        NEXT_STAGE_CONDITION = condition;
         switch(condition){
             case "empty":
                 $("#indicator").removeClass("stage_condition_wait");
@@ -201,7 +202,7 @@ function show_stage_info(stage_id){
                 if(MYSTERY_STAGES.includes(stage_id)){
                     $("#go_next_stage").attr("disabled",true);
                 }else{
-                    IS_CORRECTED = true;
+                    IS_CORRECTED = true;//謎解きステージでなければ、正答状態を既にtrueにする。
                     $("#go_next_stage").attr("disabled",false);
                 }
                 break;
@@ -239,11 +240,16 @@ $("#answer").on("click",()=>{
     if($("#answer_field").val() == MYSTERY_ANSWERS[NOW_STAGE_ID]){
         alert("正解！");
         IS_CORRECTED = true;
-        if(NOW_STAGE_ID != 6){
-            $("#go_next_stage").attr("disabled",false);
-        }else{
-            $("#escape").attr("disabled",false);
+        if(NOW_STAGE_CONDITION == "full"){//次ルームの状態が使用中だったとき、正答してもdisabledにする。
+            $("#go_next_stage").attr("disabled",true);
+        }else{ 
+            if(NOW_STAGE_ID != 6){
+                $("#go_next_stage").attr("disabled",false);
+            }else{
+                $("#escape").attr("disabled",false);
+            }
         }
+        
         $("#answer").attr("disabled",true);
         $("#answer_field").attr("disabled",true);
     }else{
