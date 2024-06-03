@@ -1,9 +1,15 @@
 body{
     margin: 0px;
+    padding: 0px;
     font-size: 8vw;
+}
+.ocean{
+    width: 100vw;
+    margin-top: -1em;
 }
 .title_banner{
     width: 100vw;
+    margin: 0px;
 }
 .explain_text{
     font-size: 1em;
@@ -15,7 +21,10 @@ body{
 .next_page{
     background-color: lightgray;
     display: block;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:0;
+    margin-bottom: 2em;
     padding: 1em;
     font-size: 0.6em;
     border-radius: 0.5em;
@@ -28,4 +37,18 @@ body{
     padding: 1em;
     font-size: 0.6em;
     border-radius: 0.5em;
+}
+
+.credit{
+    font-size: 1em;
+    color: #dddddd;
+}
+.play-txt{
+    font-size: 2em;
+    color:#fff;
+    text-shadow:
+    3px 3px 0 #f00,
+    -3px 3px 0 #f00,
+    -3px -3px 0 #f00,
+    3px -3px 0 #f00;
 }
