@@ -7,8 +7,48 @@
     <title>青龍伝説　-ゲスト画面-</title>
 </head>
 <body>
-    <div id="connecting" class="alert">
-        <h3 id="stage_indicator" class="center_text">通信中</h3>
+    <div id="connecting" class="alert" style="display: none;">
+        <h3 id="message" class="center_text">通信中</h3>
+        <span id="state_indicator"></span>
+    </div>
+    <div id="unable_cookie" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text" style="font-size:0.7em;font-style: bold; font-family: sans-serif;">
+                Cookieが無効です。<br>設定でcookieを有効にしてください。
+            </span>
+        </div>
+    </div>
+    <div id="connecting_crash" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text" style="font-size:0.7em;font-style: bold; font-family: sans-serif;">
+                通信エラーが発生しました。通信環境の良い場所でページを再読み込みするか、通信環境の良い機器でページを読み込んでください。
+            </span>
+        </div>
+    </div>
+    <div id="confirm" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text" style="font-size:0.7em;font-style: bold; font-family: sans-serif;"></span><br>
+            <button id="allow">はい</button>
+            <button id="reject">いいえ</button>
+        </div>
+    </div>
+    <div id="alert" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text" style="font-size:0.7em;font-style: bold; font-family: sans-serif;"></span><br>
+            <button id="allow" class="center_block">OK</button>
+        </div>
+    </div>
+    <div id="reloader" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text" style="font-size:0.7em;font-style: bold; font-family: sans-serif;">対象のUUIDを入力し再接続</span><br>
+            <input type="text" id="uuid-enter-1" placeholder="8桁" style="width:4em" maxlength="8">-
+            <input type="text" id="uuid-enter-2" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-3" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-4" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-5" placeholder="12桁" style="width:6em" maxlength="12">
+            <button id="allow">OK</button>
+            <button id="reject">Cancel</button>
+        </div>
     </div>
 
     <div id="stage_ent">
@@ -73,7 +113,7 @@
         <p class="center_text" id="stage_explain">
             青龍が助けてくれた！
         </p>
-        <img style="width:100vw; height:50vw;" src="../introduction/img/place_holder.png">
+        <img style="width:100vw; height:50vw;" src="../../introduction/img/place_holder.png">
     </div>
 
 
@@ -81,32 +121,38 @@
     <div id="answer_area" style="display: none;">
         <p class="center_text">答え</p>
         <input type="text" placeholder="ここに入力..." id="answer_field">
-        <button id="answer" class="center_button" disabled>答える</button>
+        <button id="answer" class="center_block" disabled>答える</button>
     </div>
-    <div id="stage_changer" style="display: none;">
+    <div id="stage_changer">
         <div id="nextstage_condition">
             <p class="center_text" id="title">次のステージの状態</p>
             <p class="center_text stage_condition_wait" id="indicator">
                 取得中
             </p>
         </div>
-        <button id="go_next_stage" class="center_button" disabled>
+        <button id="go_next_stage" class="center_block green-button" disabled>
             次のステージに<br>
             入りました
         </button>
         <p class="center_text note">ボタンがグレーの時は次のステージに入らないでください。</p>
+        <button id="reload_state" class="center_block" disabled>
+            今の状態を取得
+        </button>
+        <p class="center_text note">次のステージに進むときなどに今の状態を確認するために押してください。</p>
     </div>
     <div id="escape_stage" style="display: none;">
-        <button id="escape" class="center_button" disabled>
+        <button id="escape" class="center_block green-button" disabled>
             脱出する！
         </button>
     </div>
-    <script
-        src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-        crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/@skyway-sdk/room/dist/skyway_room-latest.js"></script>
+    <footer>
+        <p>© 2024 H.I.</p>
+        uuid:<span id="uuid"></span>
+        <span id="reload_trg">(reload)</span>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/@skyway-sdk/room/dist/skyway_room-latest.js"></script>-->
     <script src="script.js"></script>
 </body>
 </html>
