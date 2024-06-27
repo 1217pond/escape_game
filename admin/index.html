@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>脱出ゲーム　管理者画面</title>
+</head>
+<body>
+    <h2>管理者画面</h2>
+    <!-- <span>peer_id: </span><span id="peer_id">接続中</span> -->
+    <div class="div-box">
+        <h3>ステージ状況</h3>
+        <button id="reload-trg">再読み込み</button>
+        <span>読込日時：</span><span id="reload-time"></span><br>
+        <table border="1">
+            <tr>
+                <th>ステージ名</th>
+                <th>状態</th>
+                <th>経過時間</th>
+                <th>UUID</th>
+            </tr>
+            <tr>
+                <th>レーザー</th>
+                <td id="s1" class="wait">取得中</td> 
+                <td id="t1">-</td>
+                <td id="u1" class="mono">-</td>
+            </tr>
+            <tr>
+                <th>謎解き①</th>
+                <td id="s2" class="wait">取得中</td> 
+                <td id="t2">-</td>
+                <td id="u2" class="mono">-</td>
+            </tr>
+            <tr>
+                <th>箱</th>
+                <td id="s3" class="wait">取得中</td> 
+                <td id="t3">-</td>
+                <td id="u3" class="mono">-</td>
+            </tr>
+            <tr>
+                <th>謎解き②</th>
+                <td id="s4" class="wait">取得中</td> 
+                <td id="t4">-</td>
+                <td id="u4" class="mono">-</td>
+            </tr>
+            <tr>
+                <th>トランプ</th>
+                <td id="s5" class="wait">取得中</td> 
+                <td id="t5">-</td>
+                <td id="u5" class="mono">-</td>
+            </tr>
+            <tr>
+                <th>青龍の住処</th>
+                <td id="s6" class="wait">取得中</td> 
+                <td id="t6">-</td>
+                <td id="u6" class="mono">-</td>
+            </tr>
+        </table>
+    </div>
+    <div class="div-box">
+        <h3>ステージ操作</h3>
+        <button id="kick-trg">追放</button>
+        <button id="add-trg">参加・移動</button>
+    </div>
+    <div id="kicker" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text">追放したいユーザーのいるルームを選択</span><br>
+            <select id="room-selector">
+                <option value="laser">レーザー</option>
+                <option value="mystery_1">謎解き①</option>
+                <option value="box">箱</option>
+                <option value="mystery_2">謎解き②</option>
+                <option value="trump">トランプ</option>
+                <option value="mystery_last">青龍の住処</option>
+            </select><br>
+            <button id="allow">OK</button>
+            <button id="reject">Cancel</button>
+        </div>
+    </div>
+    <div id="adder" class="alert" style="display: none;">
+        <div class="dialog">
+            <span class="center_text">参加・移動させたいユーザーのUUIDとルームを選択</span><br>
+            <input type="text" id="uuid-enter-1" placeholder="8桁" style="width:4em" maxlength="8">-
+            <input type="text" id="uuid-enter-2" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-3" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-4" placeholder="4桁" style="width:2em" maxlength="4">-
+            <input type="text" id="uuid-enter-5" placeholder="12桁" style="width:6em" maxlength="12">
+            <select id="room-selector">
+                <option value="laser">レーザー</option>
+                <option value="mystery_1">謎解き①</option>
+                <option value="box">箱</option>
+                <option value="mystery_2">謎解き②</option>
+                <option value="trump">トランプ</option>
+                <option value="mystery_last">青龍の住処</option>
+            </select><br>
+            <button id="allow">OK</button>
+            <button id="reject">Cancel</button>
+        </div>
+    </div>
+    <!-- <div class="div-box">
+        <h3>接続中ユーザー</h3>
+        <table border="1" id="connecting_users">
+            <tr>
+                <th>UUID</th>
+                <th>PeerID</th>
+                <th>送信状態</th>
+                <th>受信状態</th>
+            </tr>
+        </table>
+    </div> -->
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+        crossorigin="anonymous"
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@skyway-sdk/room/dist/skyway_room-latest.js"></script> -->
+    <script src="main.js"></script>
+</body>
+</html>

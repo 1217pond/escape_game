@@ -3,19 +3,8 @@ body{
     padding: 0px;
     font-size: 8vw;
 }
-.ocean{
-    position: absolute;
-    width: 100vw;
-    top: 75vw;
-    left: 0;
-    z-index: -1000;
-}
-.title_banner{
-    width: 100vw;
-    margin: 0px;
-}
 .explain_text{
-    font-size: 1em;
+    font-size: 0.7em;
     width: 100%;
     text-shadow: #fff 0 0 0.2em; 
     text-align: center;
@@ -51,4 +40,9 @@ body{
     font-size: 2em;
     color:#fff;
     text-shadow: 3px 3px 0 #f00;
+}
+.simple-box{
+    border: #ddd solid 0.05em;
+    border-radius: 0.5em;
+    margin: 1em;
 }

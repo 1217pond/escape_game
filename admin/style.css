@@ -1,0 +1,78 @@
+body{
+    font-family: serif;
+    font-size: 3vw;
+    margin: 0px;
+}
+.div-box{
+    margin: 1em;
+    padding: 0.5em;
+    border: 0.1em, solid, #000;
+}
+.empty{
+    color: #3060ff;
+}
+.full{
+    color: #ff3060;
+}
+.wait{
+    color: #d0d0d0;
+}
+button {
+	margin-bottom: .5em;
+	padding: 1em;
+	font-size: .6em;
+	border-radius: .5em;
+}
+#reload-trg{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+.mono{
+    font-family: monospace;
+    font-size: 0.8em;
+}
+
+.alert {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #00000083;
+}
+
+.alert #message {
+	font-size: 1.5em;
+	position: fixed;
+	left: 0%;
+	top: 20%;
+	width: 100%;
+	text-align: center;
+	text-shadow: 2px 2px 0 #fff;
+}
+
+.alert #state_indicator {
+	font-size: 1em;
+	position: fixed;
+	left: 0%;
+	top: 60%;
+	width: 100%;
+	text-align: center;
+}
+.dialog {
+	position: fixed;
+	background-color: #fff;
+	width: 64vw;
+	top: 20vh;
+	left: 10vw;
+	padding: 8vw;
+	border-radius: 1em;
+}
+
+input[type=text] ,select{
+	font-size: 1em;
+	width: 100%;
+	font-family: monospace;
+}
