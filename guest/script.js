@@ -81,6 +81,7 @@ class GUEST_CONNECTION {
 				$("#indicator").removeClass("stage_condition_wait");
 				$("#indicator").addClass("stage_condition_full");
 				$("#indicator").text("使用中")
+				$("#go_next_stage").attr("disabled", true)
 			} else {
 				$("#indicator").removeClass("stage_condition_wait");
 				$("#indicator").addClass("stage_condition_empty");
@@ -145,7 +146,11 @@ class GUEST_CONNECTION {
 				alert_org("正解！");
 				this.CORRECTED_ANS = true;
 				if(this.NOW_STAGE_ID != 6) {
-					$("#go_next_stage").attr("disabled", false)
+					if(this.stage_states[this.STAGES[this.NOW_STAGE_ID+1]].is_used){
+						$("#go_next_stage").attr("disabled", true);
+					}else{
+						$("#go_next_stage").attr("disabled", false);
+					}
 				} else {
 					$("#escape").attr("disabled", false)
 				}
@@ -224,7 +229,8 @@ class GUEST_CONNECTION {
 		});
 		//時刻
 		$("#reload-time").text("読込日時  "+(new Date()).toLocaleTimeString());
-		return await response.json()
+		this.stage_states = await response.json();
+		return this.stage_states;
 	}
 	async move_to(trg_stage_id, ignore_error = true) {
 		$(this.STAGES_DIV_QUERY[this.NOW_STAGE_ID]).hide();
