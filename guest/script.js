@@ -60,6 +60,7 @@ class GUEST_CONNECTION {
 				}
 			} else {
 				await alert_org("サーバー上に記録が見つからなかったため、最初から始めます。");
+				Cookies.remove('UUID');
 				this.before_UUID = false;
 				this.restart = false;
 				this.start();
