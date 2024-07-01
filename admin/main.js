@@ -267,34 +267,38 @@ class INFORMATION_SERVER{
             $(`#s${i+1}`).addClass("wait");
         }
         //ステージ状態ロード
-        let response = await fetch(
-            `https://script.google.com/macros/s/AKfycbwMbUDB-Gdqrm9grC9nx9evBZG59NTOiT58YueT1LVB_BEOwaBun6DvarLmwlKPtoec/exec?type=state`,{
-                method:"GET",
-                cache: "no-cache",
+        try{
+            let response = await fetch(
+                `https://script.google.com/macros/s/AKfycbwMbUDB-Gdqrm9grC9nx9evBZG59NTOiT58YueT1LVB_BEOwaBun6DvarLmwlKPtoec/exec?type=state`,{
+                    method:"GET",
+                    cache: "no-cache",
+                }
+            );
+            this.stage_states = await response.json();
+            for(let [i,state] of Object.entries(Object.values(this.stage_states))){
+                if(state.is_used){
+                    $(`#s${Number(i)+1}`).text("使用中");
+                    $(`#u${Number(i)+1}`).text(state.uuid);
+                    this.used_rooms[i] = true;
+                    $(`#t${Number(i)+1}`).text("--:--");
+                    $(`#s${Number(i)+1}`).removeClass("wait");
+                    $(`#s${Number(i)+1}`).addClass("full");
+                }else{           
+                    $(`#s${Number(i)+1}`).text("空室");
+                    $(`#u${Number(i)+1}`).text("-");
+                    this.used_rooms[i] = false;
+                    $(`#t${Number(i)+1}`).text("-");
+                    $(`#s${Number(i)+1}`).removeClass("wait");
+                    $(`#s${Number(i)+1}`).addClass("empty");
+                }
             }
-        );
-        this.stage_states = await response.json();
-        for(let [i,state] of Object.entries(Object.values(this.stage_states))){
-            if(state.is_used){
-                $(`#s${Number(i)+1}`).text("使用中");
-                $(`#u${Number(i)+1}`).text(state.uuid);
-                this.used_rooms[i] = true;
-                $(`#t${Number(i)+1}`).text("--:--");
-                $(`#s${Number(i)+1}`).removeClass("wait");
-                $(`#s${Number(i)+1}`).addClass("full");
-            }else{           
-                $(`#s${Number(i)+1}`).text("空室");
-                $(`#u${Number(i)+1}`).text("-");
-                this.used_rooms[i] = false;
-                $(`#t${Number(i)+1}`).text("-");
-                $(`#s${Number(i)+1}`).removeClass("wait");
-                $(`#s${Number(i)+1}`).addClass("empty");
-            }
+
+            $("#reload-time").text((new Date()).toLocaleString());
+    
+        }catch(e){
+            alert(e.message);
         }
-
-        $("#reload-time").text((new Date()).toLocaleString());
     }
-
     reload_time(){
         for(let i = 0;i<4;i++){
             if(this.used_rooms[i]){//ルームが使用されていたら
