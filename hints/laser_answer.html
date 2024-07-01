@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>レーザー回答</title>
+</head>
+<body>
+    <div class="div-box">
+        <h6>
+            ここにレーザーステージの問題の答えを入力してね。
+            何かががもらえるかも！(ひらがなで入力してください)
+        </h6>
+        <input id="ans-enter" type="text" placeholder="ここに入力">
+        <div class="note center_text" id="interval" style="display:none">
+            回答禁止中です(約10秒)
+        </div>
+        <button id="ans-trg" class="center_block green-button" disabled>答える</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <script>
+        $("#ans-enter").on("input",()=>{
+            let ans = $("#ans-enter").val();
+            //空白削除
+            ans = ans.replace(/ /g,"").replace(/　/g,"");
+            $("#ans-enter").val(ans);
+            if (ans.length > 0 && ABLE_ANS){
+                $("#ans-trg").attr("disabled",false);
+            }else{
+                $("#ans-trg").attr("disabled",true);
+            }
+        });
+        $("#ans-trg").on("click",()=>{
+            if($("#ans-enter").val() == "かいぐん"){
+                alert("正解！");
+                window.location.href = "./743696eb-e8df-4320-ab6e-5083070b76a0.html";
+            }else{
+                alert("不正解…");
+                $("#interval").show();
+                $("#ans-trg").attr("disabled",true);
+                ABLE_ANS = false;
+                setTimeout(()=>{
+                    ABLE_ANS = true;
+                    $("#interval").hide();
+                    if($("#ans-enter").val()){
+                        $("#ans-trg").attr("disabled",false);
+                    }
+                },10000);
+            }
+        });
+        window.ABLE_ANS = true;
+    </script>
+</body>
+</html>

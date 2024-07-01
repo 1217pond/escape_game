@@ -137,7 +137,11 @@ class GUEST_CONNECTION {
 			await this.move_to(this.NOW_STAGE_ID + 1)
 		});
 		$("#answer_field").on("input", () => {
-			if($("#answer_field").val()) {
+			let ans = $("#answer_field").val();
+            //空白削除
+            ans = ans.replace(/ /g,"").replace(/　/g,"");
+            $("#answer_field").val(ans);
+			if(ans) {
 				$("#answer").attr("disabled", false)
 			} else {
 				$("#answer").attr("disabled", true)
