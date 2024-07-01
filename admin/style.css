@@ -75,4 +75,5 @@ input[type=text] ,select{
 	font-size: 1em;
 	width: 100%;
 	font-family: monospace;
+	padding: 0;
 }

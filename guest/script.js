@@ -5,10 +5,12 @@ class GUEST_CONNECTION {
 		this.NEXT_STAGE_CONDITION = "wait"
 		this.NOW_STAGE_ID = 0
 		this.CORRECTED_ANS = false
-		this.STAGES = ["entrance", "laser", "mystery_1", "box", "mystery_2", "trump", "mystery_last", "CLEAR", ]
-		this.STAGES_DIV_QUERY = ["#stage_ent", "#stage_A", "#stage_B", "#stage_C", "#stage_D", "#stage_E", "#stage_last", "#stage_clear"]
-		this.MYSTERY_STAGES = [2, 4, 6]
-		this.MYSTERY_ANSWERS = ["", "", "answer", "", "answer", "", "answer", ""]
+		// this.STAGES = ["entrance", "laser", "mystery_1", "box", "mystery_2", "trump", "mystery_last", "CLEAR", ]
+		this.STAGES = ["entrance", "laser",  "box", "trump", "mystery_last", "CLEAR", ]
+		this.STAGES_DIV_QUERY = ["#stage_ent", "#stage_A", "#stage_B", "#stage_C", "#stage_last", "#stage_clear"]
+		//this.MYSTERY_STAGES = [2, 4, 6]
+		this.MYSTERY_STAGES = [4]
+		this.MYSTERY_ANSWERS = ["", "", "", "", "しんくんもうしょう", ""]
 		this.start();
 	}
 	async start() {
@@ -60,7 +62,7 @@ class GUEST_CONNECTION {
 				}
 			} else {
 				await alert_org("サーバー上に記録が見つからなかったため、最初から始めます。");
-				Cookies.remove('UUID');
+				Cookies.remove("UUID");
 				this.before_UUID = false;
 				this.restart = false;
 				this.start();
@@ -82,7 +84,6 @@ class GUEST_CONNECTION {
 				$("#indicator").removeClass("stage_condition_wait");
 				$("#indicator").addClass("stage_condition_full");
 				$("#indicator").text("使用中")
-				$("#go_next_stage").attr("disabled", true)
 			} else {
 				$("#indicator").removeClass("stage_condition_wait");
 				$("#indicator").addClass("stage_condition_empty");
@@ -146,12 +147,8 @@ class GUEST_CONNECTION {
 			if($("#answer_field").val() == this.MYSTERY_ANSWERS[this.NOW_STAGE_ID]) {
 				alert_org("正解！");
 				this.CORRECTED_ANS = true;
-				if(this.NOW_STAGE_ID != 6) {
-					if(this.stage_states[this.STAGES[this.NOW_STAGE_ID+1]].is_used){
-						$("#go_next_stage").attr("disabled", true);
-					}else{
-						$("#go_next_stage").attr("disabled", false);
-					}
+				if(this.NOW_STAGE_ID != 4) {
+					$("#go_next_stage").attr("disabled", false)
 				} else {
 					$("#escape").attr("disabled", false)
 				}
@@ -230,8 +227,7 @@ class GUEST_CONNECTION {
 		});
 		//時刻
 		$("#reload-time").text("読込日時  "+(new Date()).toLocaleTimeString());
-		this.stage_states = await response.json();
-		return this.stage_states;
+		return await response.json()
 	}
 	async move_to(trg_stage_id, ignore_error = true) {
 		$(this.STAGES_DIV_QUERY[this.NOW_STAGE_ID]).hide();
@@ -253,7 +249,7 @@ class GUEST_CONNECTION {
 			$("#answer_area").hide()
 		}
 		$("#connecting").hide();
-		if(this.NOW_STAGE_ID == 6) {
+		if(this.NOW_STAGE_ID == 4) {
 			$("#stage_changer").hide();
 			$("#escape_stage").show();
 			$("#escape").on("click", async() => {
@@ -287,7 +283,43 @@ class GUEST_CONNECTION {
 				$("#stage_last").hide();
 				$("#stage_clear").show();
 				Cookies.remove('UUID')
-			})
+			});
+			$("#giveup").on("click",async()=>{
+				if(await confirm_org("本当にギブアップしますか？")){
+					$("#connecting").show();
+					$("#connecting #state_indicator").text("ギブアップ処理中");
+					try {
+						let response = await fetch(`https://script.google.com/macros/s/AKfycbwMbUDB-Gdqrm9grC9nx9evBZG59NTOiT58YueT1LVB_BEOwaBun6DvarLmwlKPtoec/exec?type=move&uuid=${this.UUID}`, {
+							method: "GET",
+							cache: "no-cache",
+						});
+						$("#connecting").hide();
+						if((await response.text()) != "success") {
+							if(ignore_error) {
+								alert_org("通信エラーが発生しました。もう一度試してください。");
+								return
+							} else {
+								return "exception"
+							}
+						}
+					} catch(e) {
+						$("#connecting").hide();
+						if(ignore_error) {
+							alert_org("通信エラーが発生しました。もう一度試してください。");
+							return
+						} else {
+							return e
+						}
+					}
+					$("#answer_area").hide();
+					$("#escape_stage").hide();
+					$("#stage_last").hide();
+					$("#stage_failed").show();
+					Cookies.remove('UUID')
+				}else{
+					
+				}
+			});
 		} else {
 			let stage_state;
 			try {

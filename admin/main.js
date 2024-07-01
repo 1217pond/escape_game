@@ -150,8 +150,9 @@ class INFORMATION_SERVER{
     //     }
     // }
     async start(){
-        this.STAGES = ["entrance", "laser", "mystery_1", "box", "mystery_2", "trump", "mystery_last", "CLEAR", ];
-        this.used_rooms = [false,false,false,false,false,false];
+        //this.STAGES = ["entrance", "laser", "mystery_1", "box", "mystery_2", "trump", "mystery_last", "CLEAR", ];
+        this.STAGES = ["laser", "box", "trump", "mystery_last"];
+        this.used_rooms = [false,false,false,false];
         this.stage_states = null;
 
         //ステージ状態ロード
@@ -205,6 +206,14 @@ class INFORMATION_SERVER{
 				alert("文字数が異なります。")
 			}
 		});
+        $("#adder #generate-uuid").on("click",()=>{
+            let UUID = crypto.randomUUID();
+            $("#uuid-enter-1").val(UUID.slice(0,8));
+            $("#uuid-enter-2").val(UUID.slice(9,13));
+            $("#uuid-enter-3").val(UUID.slice(14,18));
+            $("#uuid-enter-4").val(UUID.slice(19,23));
+            $("#uuid-enter-5").val(UUID.slice(24,36));
+        });
 		$("#adder #reject").on("click", () => {
 			$("#adder").hide()
 		})
@@ -248,8 +257,8 @@ class INFORMATION_SERVER{
 
     async reload(){
         //取得中にする
-        this.used_rooms = [false,false,false,false,false,false];
-        for(let i = 0;i<6;i++){
+        this.used_rooms = [false,false,false,false];
+        for(let i = 0;i<4;i++){
             $(`#s${i+1}`).text("取得中");
             $(`#u${i+1}`).text("-");
             $(`#t${i+1}`).text("-");
@@ -287,9 +296,9 @@ class INFORMATION_SERVER{
     }
 
     reload_time(){
-        for(let i = 0;i<6;i++){
+        for(let i = 0;i<4;i++){
             if(this.used_rooms[i]){//ルームが使用されていたら
-                let elapsed_time = new Date(Date.now() - this.stage_states[this.STAGES[i+1]].enter_T*1000);
+                let elapsed_time = new Date(Date.now() - this.stage_states[this.STAGES[i]].enter_T*1000);
                 $(`#t${i+1}`).text(elapsed_time.toUTCString().slice(20,25));
             }
         }
